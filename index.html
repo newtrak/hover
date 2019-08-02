@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+    <title>Text change</title>
+    <style>
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Exo', sans-serif;
+            font-size: 3em;
+        }
+        
+        #grid {
+            position: inherit;
+            width: 1200px;
+            margin: 200px auto 0;
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .left {
+            height: 600px;
+            float: left;
+            width: 50%;
+            grid-row: 1;
+        }
+        
+        .right {
+            height: 600px;
+            float: left;
+            width: 50%;
+            grid-row: 1;
+        }
+         .grow {
+            transition: all .7s ease-in-out;
+        }
+        
+        .makeGrow {
+            transform: scale(1.3);
+        }
+        
+        .text {
+            position: absolute;
+            z-index: 200;
+            width: 50%;
+            top: 40%;
+            left: 50%;
+            text-align: center;
+            transform: translate(-50%, -50%);
+        }
+          .hidden {
+            opacity: 0;
+        }
+        
+        #main,
+        #leftText,
+        #rightText {
+            transition: all .7s ease-in-out;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="grid">
+        <div class="left grow" id="leftImg"><img src="img/animal.png"></div>
+        <div class="right grow" id="rightImg"><img src="img/bull.png"></div>
+        <div class="text" id="main">Choose
+            <br>Your
+            <br>Character</div>
+        <div class="text hidden" id="leftText">Cat</div>
+        <div class="text hidden" id="rightText">Fernando</div>
+    </div>
+
+   <script>
+        var over = false;;
+        var middle = window.innerWidth / 2;
+        var grid = document.getElementById("grid");
+        var main = document.getElementById("main");
+        var leftImg = document.getElementById("leftImg");
+        var rightImg = document.getElementById("rightImg");
+        var leftText = document.getElementById("leftText");
+        var rightText = document.getElementById("rightText");
+
+        grid.onmouseover = function() {
+            console.log("true");
+            main.classList.add("hidden");
+            over = true;
+        }
+        grid.onmouseout = function() {
+            console.log("false");
+            main.classList.remove("hidden");
+            over = false;
+        }
+        document.onmousemove = function() {
+            var x = event.clientX;
+            if (over == true) {
+                if (x < middle) {
+                    leftImg.classList.add("makeGrow");
+                    leftText.classList.remove("hidden");
+                    rightImg.classList.remove("makeGrow");
+                    rightText.classList.add("hidden");
+                } else {
+                    leftImg.classList.remove("makeGrow");
+                    leftText.classList.add("hidden");
+                    rightImg.classList.add("makeGrow");
+                    rightText.classList.remove("hidden");
+                }
+            } else {
+                leftImg.classList.remove("makeGrow");
+                leftText.classList.add("hidden");
+                rightImg.classList.remove("makeGrow");
+                rightText.classList.add("hidden");
+            }
+        }
+
+    </script>
+</body>
+
+</html>
